@@ -9,14 +9,13 @@ public class conectaDAO {
     public Connection connectDB() {
         Connection conn = null;
 
-        try {
-
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
-
+        try {   
+            //conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?user=root&password=");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?useSSL=false","root","Agl31290975!");
+            
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
         }
         return conn;
     }
-
 }
