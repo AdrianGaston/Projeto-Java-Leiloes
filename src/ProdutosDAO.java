@@ -27,7 +27,8 @@ public class ProdutosDAO {
             prep.executeUpdate();
             JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar produto, tente novamente mais tarde", "Erro", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e.getMessage());
         } finally {
             conexaoDAO.desconectar();
         }
@@ -44,7 +45,7 @@ public class ProdutosDAO {
         try {
             
             if (conn == null || conn.isClosed()) {
-                conecta.connectDB(); //ARRUMAR
+                conecta.connectDB();
             }
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
