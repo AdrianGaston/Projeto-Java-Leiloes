@@ -4,13 +4,13 @@ import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProdutosDAO {
 
     Connection conn;
     PreparedStatement prep;
     ResultSet resultset;
-    ArrayList<ProdutosDTO> listagem = new ArrayList<>();
 
     public void cadastrarProduto(ProdutosDTO produto) {
         conectaDAO conexaoDAO = new conectaDAO();
@@ -32,10 +32,39 @@ public class ProdutosDAO {
             conexaoDAO.desconectar();
         }
     }
-
+    
+    //Método para listar os produtos cadastrados
     public ArrayList<ProdutosDTO> listarProdutos() {
-
-        return listagem;
+        String sql = "SELECT * FROM produtos";
+        
+        List<ProdutosDTO> listaProdutos = new ArrayList<>();
+        
+        conectaDAO conecta = new conectaDAO();
+        conn = conecta.connectDB();
+        try {
+            
+            if (conn == null || conn.isClosed()) {
+                conecta.connectDB(); //ARRUMAR
+            }
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            //Estrutura de repetição para pegar os produtos ja cadastrados do banco
+            while (rs.next()) {
+                ProdutosDTO produto = new ProdutosDTO();
+                produto.setId(rs.getInt("id"));
+                produto.setNome(rs.getString("nome"));
+                produto.setValor(rs.getInt("valor"));
+                produto.setStatus(rs.getString("status"));
+                
+                listaProdutos.add(produto);
+            }
+            rs.close();
+            stmt.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return (ArrayList<ProdutosDTO>) listaProdutos;
     }
-
 }

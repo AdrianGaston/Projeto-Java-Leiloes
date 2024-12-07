@@ -17,6 +17,7 @@ public class conectaDAO {
             System.out.println("Conexão estabelecida com sucesso!");
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar" + erro.getMessage());
+            return null;
         }
         return conn;
     }

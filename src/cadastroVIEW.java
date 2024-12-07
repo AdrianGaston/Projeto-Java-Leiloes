@@ -142,7 +142,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
             ProdutosDAO produtodao = new ProdutosDAO();
             produtodao.cadastrarProduto(produto);
             
-            //Limpando os campos após o cadastro
+            //Limpa os campos após o cadastro
             cadastroNome.setText("");
             cadastroValor.setText("");
         }
