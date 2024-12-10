@@ -38,7 +38,7 @@ public class ProdutosDAO {
     //Método para listar os produtos cadastrados
     public ArrayList<ProdutosDTO> listarProdutos() {
         String sql = "SELECT * FROM produtos";
-        
+    
         List<ProdutosDTO> listaProdutos = new ArrayList<>();
         
         conectaDAO conecta = new conectaDAO();
@@ -87,5 +87,37 @@ public class ProdutosDAO {
             System.out.println("Erro ao vender o produto: " + e.getMessage());
         }
     }
+    
+    // Método para listar os produtos vendidos
+    public ArrayList<ProdutosDTO> listarProdutosVendidos() {
+        String sql = "SELECT * FROM produtos WHERE status LIKE 'Vendido'";
+        ArrayList<ProdutosDTO> listaProdutos = new ArrayList<>();
+
+        try {
+            if (conn == null || conn.isClosed()) {
+                conectaDAO conecta = new conectaDAO();
+                conn = conecta.connectDB();
+            }
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    ProdutosDTO produto = new ProdutosDTO();
+                    produto.setId(rs.getInt("id"));
+                    produto.setNome(rs.getString("nome"));
+                    produto.setValor(rs.getInt("valor"));
+                    produto.setStatus(rs.getString("status"));
+
+                    listaProdutos.add(produto);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Erro ao listar produtos vendidos: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return listaProdutos;
+    }
+
     
 }
