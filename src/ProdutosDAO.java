@@ -11,7 +11,8 @@ public class ProdutosDAO {
     Connection conn;
     PreparedStatement prep;
     ResultSet resultset;
-
+    
+    //Método para cadastrar produto
     public void cadastrarProduto(ProdutosDTO produto) {
         conectaDAO conexaoDAO = new conectaDAO();
         conn = conexaoDAO.connectDB();
@@ -68,4 +69,23 @@ public class ProdutosDAO {
         }
         return (ArrayList<ProdutosDTO>) listaProdutos;
     }
+    
+    //Método para vender produto
+    public void venderProduto(int produtoId) {
+        String sql = "UPDATE produtos SET status = 'Vendido' WHERE id = ?";
+        
+        try {
+            if (conn == null || conn.isClosed()) {
+                conectaDAO conexaoDAO = new conectaDAO();
+                conn = conexaoDAO.connectDB();
+            }
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, produtoId);
+            int linha = stmt.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Venda realizada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        }catch (Exception e) {
+            System.out.println("Erro ao vender o produto: " + e.getMessage());
+        }
+    }
+    
 }
