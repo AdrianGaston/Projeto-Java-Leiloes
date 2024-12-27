@@ -13,7 +13,7 @@ public class conectaDAO {
     public Connection connectDB() {
 
         try {   
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?useSSL=false","root","Agl31290975!");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/uc11?useSSL=false","root","");
             System.out.println("Conexão estabelecida com sucesso!");
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, "Erro ao conectar" + erro.getMessage());
