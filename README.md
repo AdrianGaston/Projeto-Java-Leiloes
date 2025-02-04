@@ -1,9 +1,9 @@
 # Projeto Java Leilões📝
 
-👉Esse é um projeto de cadastro e venda de eletrónicos da atividade 01 da UC11.
+👉 The following project was developed in Java, with a MySQL database, initially created by Senac for study purposes and later improved by me.
+
 
 ## Tecnologias utilizadas💻
 - Java
 - MySQL
-- Git Bash
 - GitHub
